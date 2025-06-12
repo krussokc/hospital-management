@@ -30,10 +30,6 @@ public class HospitalTests : WebApplicationTestBase<HospitalDbContext>
 
         hospital.ShouldNotBeNull();
 
-        //var workflowTemplateData = new CreateWorkflowTemplate { Name = "Requisition", Description = "Description for Requisition" };
-        //var workflowTemplateResult = await client.Post<Contracts.Workflows.WorkflowTemplate>(workflowTemplatesUrl, workflowTemplateData);
-        //var workflowTemplate = workflowTemplateResult.Response.Data;
-
-        //TestOutput.WriteLine(workflowTemplateResult.Content);
+        //TestOutput.WriteLine(createHospitalResult.Content);
     }
 }
