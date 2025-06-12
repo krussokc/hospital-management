@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Trio.HospitalManagement.Data.Mssql;
-using Trio.HospitalManagement.Domain.Hospitals;
+using Trio.HospitalManagement.Domain.Contracts;
 
 namespace Trio.HospitalManagement.Infrastructure.Extensions;
 

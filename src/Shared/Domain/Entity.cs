@@ -32,12 +32,18 @@ public abstract class Entity : IEntity, IAuditedEntity, ISoftDeletableEntity
 
     public void SoftDelete()
     {
+        Deactivate();
         IsDeleted = true;
         DateDeleted = DateTimeOffset.UtcNow;
+    }
+    public void Deactivate()
+    {
+        IsActive = false;
     }
 
     public DateTimeOffset DateCreated { get; private set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset DateUpdated { get; private set; } = DateTimeOffset.UtcNow;
+    public bool IsActive { get; private set; } = true;
     public bool IsDeleted { get; private set; } = false;
     public DateTimeOffset? DateDeleted { get; private set; } = null;
 }

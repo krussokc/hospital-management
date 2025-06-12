@@ -70,26 +70,26 @@ const Header = ({ onNote }: propType) => {
   const finalName = filterName.includes("app")
     ? filterName.filter((f) => f !== "app")
     : filterName.includes("ui")
-    ? filterName.filter((f) => f !== "ui")
-    : filterName.includes("uc")
-    ? filterName.filter((f) => f !== "uc")
-    : filterName.includes("basic")
-    ? filterName.filter((f) => f !== "basic")
-    : filterName.includes("jquery")
-    ? filterName.filter((f) => f !== "jquery")
-    : filterName.includes("table")
-    ? filterName.filter((f) => f !== "table")
-    : filterName.includes("page")
-    ? filterName.filter((f) => f !== "page")
-    : filterName.includes("email")
-    ? filterName.filter((f) => f !== "email")
-    : filterName.includes("ecom")
-    ? filterName.filter((f) => f !== "ecom")
-    : filterName.includes("chart")
-    ? filterName.filter((f) => f !== "chart")
-    : filterName.includes("editor")
-    ? filterName.filter((f) => f !== "editor")
-    : filterName;
+      ? filterName.filter((f) => f !== "ui")
+      : filterName.includes("uc")
+        ? filterName.filter((f) => f !== "uc")
+        : filterName.includes("basic")
+          ? filterName.filter((f) => f !== "basic")
+          : filterName.includes("jquery")
+            ? filterName.filter((f) => f !== "jquery")
+            : filterName.includes("table")
+              ? filterName.filter((f) => f !== "table")
+              : filterName.includes("page")
+                ? filterName.filter((f) => f !== "page")
+                : filterName.includes("email")
+                  ? filterName.filter((f) => f !== "email")
+                  : filterName.includes("ecom")
+                    ? filterName.filter((f) => f !== "ecom")
+                    : filterName.includes("chart")
+                      ? filterName.filter((f) => f !== "chart")
+                      : filterName.includes("editor")
+                        ? filterName.filter((f) => f !== "editor")
+                        : filterName;
   return (
     <div className={`header ${headerFix ? "sticky" : ""}`}>
       <div className="header-content">
@@ -103,14 +103,15 @@ const Header = ({ onNote }: propType) => {
                 {finalName.join(" ").length === 0
                   ? "Dashboard"
                   : finalName.join(" ") === "dashboard dark"
-                  ? "Dashboard"
-                  : finalName.join(" ")}
+                    ? "Dashboard"
+                    : finalName.join(" ")}
               </div>
             </div>
             <ul className="navbar-nav header-right">
               <Dropdown
                 as="li"
                 className="nav-item notification_dropdown search-area-header"
+                hidden={true}
               >
                 <Dropdown.Toggle as="div" className="nav-link i-false">
                   <svg
@@ -187,9 +188,8 @@ const Header = ({ onNote }: propType) => {
               <li className="nav-item dropdown notification_dropdown">
                 <Link
                   to={"#"}
-                  className={`nav-link bell dz-theme-mode ${
-                    themeMode ? "active" : ""
-                  }
+                  className={`nav-link bell dz-theme-mode ${themeMode ? "active" : ""
+                    }
 					`}
                   onClick={() => handleThemeMode()}
                 >
@@ -238,9 +238,8 @@ const Header = ({ onNote }: propType) => {
               <li className="nav-item dropdown notification_dropdown">
                 <Link
                   to={"#"}
-                  className={`nav-link bell dz-fullscreen ${
-                    changeScreen ? "active" : ""
-                  }`}
+                  className={`nav-link bell dz-fullscreen ${changeScreen ? "active" : ""
+                    }`}
                   onClick={() => {
                     EnterFullScreen();
                     setChangeScreen(!changeScreen);
@@ -317,6 +316,7 @@ const Header = ({ onNote }: propType) => {
               <Dropdown
                 as="li"
                 className="nav-item bell-icon blink notification_dropdown"
+                hidden={true}
               >
                 <Dropdown.Toggle
                   className="nav-link i-false c-pointer"
@@ -438,7 +438,7 @@ const Header = ({ onNote }: propType) => {
                   </Link>
                 </Dropdown.Menu>
               </Dropdown>
-              <Dropdown as="li" className="nav-item  notification_dropdown">
+              <Dropdown as="li" className="nav-item  notification_dropdown" hidden={true} >
                 <Dropdown.Toggle
                   variant=""
                   as="a"
@@ -573,7 +573,7 @@ const Header = ({ onNote }: propType) => {
                             <img src={profile} className="ms-0" alt="" />
                           </li>
                           <li className="ms-2">
-                            <h4 className="mb-0">Nella Vita</h4>
+                            <h4 className="mb-0">Kris Russell</h4>
                             <span>Admin</span>
                           </li>
                         </ul>
@@ -613,7 +613,7 @@ const Header = ({ onNote }: propType) => {
                           </svg>
                           <span className="ms-2">Profile </span>
                         </Link>
-                        <Link to="/chat" className="dropdown-item ai-icon ">
+                        <Link to="/chat" className="dropdown-item ai-icon">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24px"

@@ -9,8 +9,16 @@ const Hospitals = () => {
   const [postModal, setPostModal] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
 
+  const [search, setSearch] = useState<string>("");
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(25);
+
   const loadHospitals = () => {
-    getHospitals()
+    getHospitals({
+      search: search,
+      pageNumber: pageNumber,
+      pageSize: pageSize
+    })
       .then(response => {
         setHospitals(response.data.data);
       })
@@ -21,7 +29,7 @@ const Hospitals = () => {
 
   useEffect(() => {
     loadHospitals();
-  }, []);
+  }, [search, pageNumber, pageSize]);
 
   const handleAddHospital = async (event: FormEvent) => {
     event.preventDefault();
@@ -50,6 +58,11 @@ const Hospitals = () => {
               type="text"
               className="form-control"
               placeholder="Search hospitals..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPageNumber(1);  // reset paging when search changes
+              }}
             />
             <span className="input-group-text">
               <Link to={"#"}>
@@ -59,16 +72,16 @@ const Hospitals = () => {
           </div>
 
           <div className="d-flex">
-            <Dropdown className="drop-select me-3">
-              <Dropdown.Toggle as="div" className="drop-select-btn ">
-                Newest
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>Newest</Dropdown.Item>
-                <Dropdown.Item>Oldest</Dropdown.Item>
-                <Dropdown.Item>Recent</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {/*<Dropdown className="drop-select me-3">*/}
+            {/*  <Dropdown.Toggle as="div" className="drop-select-btn ">*/}
+            {/*    Newest*/}
+            {/*  </Dropdown.Toggle>*/}
+            {/*  <Dropdown.Menu>*/}
+            {/*    <Dropdown.Item>Newest</Dropdown.Item>*/}
+            {/*    <Dropdown.Item>Oldest</Dropdown.Item>*/}
+            {/*    <Dropdown.Item>Recent</Dropdown.Item>*/}
+            {/*  </Dropdown.Menu>*/}
+            {/*</Dropdown>*/}
 
             <button className="btn btn-primary" onClick={() => setPostModal(true)}>
               + New Hospital
@@ -109,6 +122,23 @@ const Hospitals = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="d-flex justify-content-center my-3">
+        <button
+          className="btn btn-secondary me-2"
+          disabled={pageNumber === 1}
+          onClick={() => setPageNumber(pageNumber - 1)}
+        >
+          Previous
+        </button>
+
+        <button
+          className="btn btn-secondary"
+          onClick={() => setPageNumber(pageNumber + 1)}
+        >
+          Next
+        </button>
       </div>
 
       {/* Modal */}

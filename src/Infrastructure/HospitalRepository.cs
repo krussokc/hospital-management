@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Trio.HospitalManagement.Data.Mssql;
+using Trio.HospitalManagement.Domain.Contracts;
 using Trio.HospitalManagement.Domain.Hospitals;
 using Trio.Infrastructure;
 
@@ -24,9 +26,23 @@ public class HospitalRepository : BaseRepository<Hospital, HospitalDbContext>, I
         return hospital;
     }
 
-    public async Task<List<Hospital>> GetAll(CancellationToken cancellationToken)
+    public async Task<List<Hospital>> GetAll(HospitalFilter filter, CancellationToken cancellationToken)
     {
-        var hospitals = await _context.Hospitals.Where(x => !x.IsDeleted).AsNoTracking().ToListAsync();
+        // base list query
+        var query = _context.Hospitals.Where(x => x.IsActive == filter.Active && !x.IsDeleted);
+
+        // paging
+        int skip = (filter.PageNumber - 1) * filter.PageSize;
+        query = query.Skip(skip).Take(filter.PageSize);
+
+        // simple search
+        if (!string.IsNullOrEmpty(filter.Search))
+        {
+            query = query.Where(x => x.Name.Contains(filter.Search));
+        }
+
+        var hospitals = await query.AsNoTracking().ToListAsync();
+
         return hospitals;
     }
 

@@ -6,6 +6,13 @@ export interface HospitalDto {
   name: string;
 }
 
+export interface GetHospitalsRequest {
+  pageNumber?: number;
+  pageSize?: number;
+  active?: boolean;
+  search?: string;
+}
+
 export interface CreateHospitalRequest {
   name: string;
 }
@@ -15,7 +22,9 @@ export interface UpdateHospitalRequest {
   data: HospitalDto;
 }
 
-export const getHospitals = () => api.get<ApiResponse<HospitalDto[]>>('/hospitals');
+export const getHospitals = (request?: GetHospitalsRequest) => {
+  return api.get<ApiResponse<HospitalDto[]>>('/hospitals', { params: request });
+}
 
 export const getHospital = (id: string) => api.get<ApiResponse<HospitalDto>>(`/hospitals/${id}`);
 

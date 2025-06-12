@@ -1,6 +1,7 @@
 ﻿using Trio.HospitalManagement.Application.Extensions;
 using Trio.HospitalManagement.Contracts.Commands;
 using Trio.HospitalManagement.Contracts.Dtos;
+using Trio.HospitalManagement.Domain.Contracts;
 using Trio.HospitalManagement.Domain.Hospitals;
 
 namespace Trio.HospitalManagement.Application.Hospitals.Commands;

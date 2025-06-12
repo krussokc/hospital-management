@@ -8,6 +8,8 @@ public class Hospital : AggregateRoot
 
     private Hospital(string name)
     {
+        Guard.AgainstNullOrWhiteSpace(name, nameof(name));
+
         Name = name.Trim();
     }
 
@@ -21,5 +23,5 @@ public class Hospital : AggregateRoot
         Name = name;
     }
 
-    public string? Name { get; private set; }
+    public string Name { get; private set; } = null!; // initialize to null for nullable compiler warnings
 }
