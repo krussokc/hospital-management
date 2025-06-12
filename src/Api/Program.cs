@@ -15,7 +15,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHospitalManagementApplicationServices();
 builder.Services.AddHospitalManagementInfrastructure(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(HospitalDbContext)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(HospitalDbContext)),
+        opts =>
+        {
+            opts.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(5),
+                errorNumbersToAdd: null);
+        });
 });
 
 var origins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
