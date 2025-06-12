@@ -1,7 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Trio.HospitalManagement.Api.Tests.Common;
+using Trio.HospitalManagement.Contracts.Commands;
+using Trio.HospitalManagement.Contracts.Dtos;
 using Trio.HospitalManagement.Data.Mssql;
 using Xunit.Abstractions;
+using Trio.HospitalManagement.Api.Tests.Common.Extensions;
+using Shouldly;
 
 namespace Trio.HospitalManagement.Api.Tests.Integration.Workflows;
 
@@ -18,9 +22,13 @@ public class HospitalTests : WebApplicationTestBase<HospitalDbContext>
 
         var context = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
 
-        var workflowTemplatesUrl = "workflow-templates";
+        var hospitalsUrl = "hospitals";
 
-        // workflow template
+        var createHospitalRequest = new CreateHospitalRequest { Name = "Test Hospital" };
+        var createHospitalResult = await client.Post<HospitalDto>(hospitalsUrl, createHospitalRequest);
+        var hospital = createHospitalResult.Response.Data;
+
+        hospital.ShouldNotBeNull();
 
         //var workflowTemplateData = new CreateWorkflowTemplate { Name = "Requisition", Description = "Description for Requisition" };
         //var workflowTemplateResult = await client.Post<Contracts.Workflows.WorkflowTemplate>(workflowTemplatesUrl, workflowTemplateData);

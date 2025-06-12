@@ -226,15 +226,15 @@ const SideBar: React.FC = () => {
           })}
         </ul>
 
-        <div className="copyright">
-          <p>
-            <strong>Hospital Managment Dashboard</strong>
-          </p>
-        {/*  <p className="fs-12">*/}
-        {/*    Made with <span className="heart" onClick={heartBlast}></span> by*/}
-        {/*    DexignLab*/}
-        {/*  </p>*/}
-        </div>
+      {/*  <div className="copyright">*/}
+      {/*    <p>*/}
+      {/*      <strong>Hospital Managment Dashboard</strong>*/}
+      {/*    </p>*/}
+      {/*    <p className="fs-12">*/}
+      {/*      Made with <span className="heart" onClick={heartBlast}></span> by*/}
+      {/*      DexignLab*/}
+      {/*    </p>*/}
+      {/*  </div>*/}
       </div>
     </div>
   );
