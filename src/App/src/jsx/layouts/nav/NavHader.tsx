@@ -20,10 +20,10 @@ const NavHader = () => {
           <text
             x="46%"
             y="58%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-size="36"
-            font-family="Arial"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontSize="36"
+            fontFamily="Arial"
             fill="white"
           >
             T
@@ -41,12 +41,12 @@ const NavHader = () => {
             <text
               x="50%"
               y="62%"
-              dominant-baseline="middle"
-              text-anchor="middle"
-              font-size="40"
-              font-family="Poppins, sans-serif"
+              dominantBaseline="middle"
+              textAnchor="middle"
+              fontSize="40"
+              fontFamily="Poppins, sans-serif"
               fill="white"
-              font-weight="bold"
+              fontWeight="bold"
             >
               TRIO
             </text>

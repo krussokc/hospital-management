@@ -10,12 +10,13 @@ const Hospitals = () => {
   const [name, setName] = useState<string>("");
 
   const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(25);
 
   const loadHospitals = () => {
     getHospitals({
-      search: search,
+      search: debouncedSearch,
       pageNumber: pageNumber,
       pageSize: pageSize
     })
@@ -27,9 +28,20 @@ const Hospitals = () => {
       });
   };
 
+  // Debounce logic
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);  // 500ms debounce delay
+
+    return () => {
+      clearTimeout(handler); // cleanup previous timer if search changes quickly
+    };
+  }, [search]);
+
   useEffect(() => {
     loadHospitals();
-  }, [search, pageNumber, pageSize]);
+  }, [debouncedSearch, pageNumber, pageSize]);
 
   const handleAddHospital = async (event: FormEvent) => {
     event.preventDefault();
@@ -53,7 +65,7 @@ const Hospitals = () => {
     <div className="row">
       <div className="col-xl-12">
         <div className="page-title flex-wrap">
-          <div className="input-group search-area mb-md-0 mb-3">
+          <div className="input-group mb-md-0 mb-3" style={{width: "600px"}}>
             <input
               type="text"
               className="form-control"
@@ -64,25 +76,21 @@ const Hospitals = () => {
                 setPageNumber(1);  // reset paging when search changes
               }}
             />
-            <span className="input-group-text">
-              <Link to={"#"}>
-                {/* You can keep your search icon here */}
-              </Link>
-            </span>
+            {search && (
+              <button
+                className="btn btn-outline-primary"
+                type="button"
+                onClick={() => {
+                  setSearch("");
+                  setPageNumber(1);
+                }}
+              >
+                Clear
+              </button>
+            )}
           </div>
 
           <div className="d-flex">
-            {/*<Dropdown className="drop-select me-3">*/}
-            {/*  <Dropdown.Toggle as="div" className="drop-select-btn ">*/}
-            {/*    Newest*/}
-            {/*  </Dropdown.Toggle>*/}
-            {/*  <Dropdown.Menu>*/}
-            {/*    <Dropdown.Item>Newest</Dropdown.Item>*/}
-            {/*    <Dropdown.Item>Oldest</Dropdown.Item>*/}
-            {/*    <Dropdown.Item>Recent</Dropdown.Item>*/}
-            {/*  </Dropdown.Menu>*/}
-            {/*</Dropdown>*/}
-
             <button className="btn btn-primary" onClick={() => setPostModal(true)}>
               + New Hospital
             </button>
@@ -141,7 +149,6 @@ const Hospitals = () => {
         </button>
       </div>
 
-      {/* Modal */}
       <Modal show={postModal} onHide={() => setPostModal(false)} centered>
         <form onSubmit={handleAddHospital}>
           <div className="modal-header">
