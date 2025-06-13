@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Shared\Infrastructure\Infrastructure.csproj" />
+    <Compile Remove="Staff\**" />
+    <EmbeddedResource Remove="Staff\**" />
+    <None Remove="Staff\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Staff\" />
+    <ProjectReference Include="..\Shared\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Shared\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

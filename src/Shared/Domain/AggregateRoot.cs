@@ -4,28 +4,28 @@ namespace Trio.Domain;
 
 public interface IAggregateRoot
 {
-    IReadOnlyList<Event> Events { get; }
-    void AddEvent(Event eventItem);
-    void RemoveEvent(Event eventItem);
+    IReadOnlyList<DomainEvent> Events { get; }
+    void AddEvent(DomainEvent eventItem);
+    void RemoveEvent(DomainEvent eventItem);
     void ClearEvents();
 }
 
 public abstract class AggregateRoot : Entity, IAggregateRoot
 {
-    protected List<Event> _events = new List<Event>();
+    protected List<DomainEvent> _events = new List<DomainEvent>();
 
     protected AggregateRoot() : base() { }
 
     #region Domain Events
 
-    public IReadOnlyList<Event> Events => _events.AsReadOnly();
+    public IReadOnlyList<DomainEvent> Events => _events.AsReadOnly();
 
-    public void AddEvent(Event eventItem)
+    public void AddEvent(DomainEvent eventItem)
     {
         _events.Add(eventItem);
     }
 
-    public void RemoveEvent(Event eventItem)
+    public void RemoveEvent(DomainEvent eventItem)
     {
         _events.Remove(eventItem);
     }

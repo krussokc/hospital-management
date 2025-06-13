@@ -12,5 +12,9 @@ internal class HospitalConfig : AggregateRootConfig<Hospital>
         base.Configure(builder);
 
         builder.ToTable("Hospitals");
+
+        builder.HasIndex(x => x.Name);
+        builder.HasIndex(x => x.IsActive);
+        builder.HasIndex(x => x.IsDeleted);
     }
 }

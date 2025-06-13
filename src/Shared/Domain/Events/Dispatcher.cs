@@ -18,16 +18,16 @@ public class Dispatcher : IDispatcher
 
     public async Task DispatchAndClearEvents(IEnumerable<IAggregateRoot> entities)
     {
+        var domainEvents = entities.SelectMany(x => x.Events).ToList();
+
         foreach (var entity in entities)
         {
-            var events = entity.Events.ToArray();
-
             entity.ClearEvents();
+        }
 
-            foreach (var domainEvent in events)
-            {
-                await _mediator.Publish(domainEvent).ConfigureAwait(false);
-            }
+        foreach (var domainEvent in domainEvents)
+        {
+            await _mediator.Publish(domainEvent).ConfigureAwait(false);
         }
     }
 }

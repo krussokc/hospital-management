@@ -1,4 +1,5 @@
 ﻿using Trio.Domain;
+using Trio.HospitalManagement.Domain.Events;
 
 namespace Trio.HospitalManagement.Domain.Hospitals;
 
@@ -11,6 +12,8 @@ public class Hospital : AggregateRoot
         Guard.AgainstNullOrWhiteSpace(name, nameof(name));
 
         Name = name.Trim();
+
+        AddEvent(new HospitalCreatedEvent(Id));
     }
 
     public static Hospital Create(string name)
